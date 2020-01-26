@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WebRTC</title>
+</head>
+<body>
+    <h1>Test NodeJs</h1>
+    <video src="" id="localStream" width="300" controls></video>
+</body>
+<script>
+    navigator.getWebcam = (navigator.getUserMedia || navigator.webKitGetUserMedia || navigator.moxGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({  audio: true, video: true })
+        .then(function (stream) {
+            console.log('ok')
+                const video = document.getElementById('localStream') ;
+                video.onloadeddata = function () {
+                    video.play();
+                }
+        })
+        .catch(function (e) { console.log(e.name + ": " + e.message); });
+    }
+    else {
+    navigator.getWebcam({ audio: true, video: true }, 
+        function (stream) {
+                //Display the video stream in the video object
+        }, 
+        function () { console.log("Web cam is not accessible."); });
+    }
+</script>
+</html>
